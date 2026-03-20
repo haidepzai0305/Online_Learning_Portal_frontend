@@ -1,0 +1,497 @@
+/* ── Layout ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #fff;
+}
+
+.auth-left {
+  width: 50%;
+  min-width: 320px;
+  padding: 48px clamp(24px, 5vw, 52px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.auth-right {
+  width: 50%;
+  min-width: 0;
+  display: flex;
+}
+
+/* ── Brand ── */
+.auth-brand {
+  margin-bottom: 36px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  font-style: italic;
+}
+
+.auth-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 28px;
+}
+
+/* ── Social Buttons ── */
+.social-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.social-btn:hover {
+  background: #f8fafc;
+}
+
+/* ── Divider ── */
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.or-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.or-divider-text {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ── Text Input ── */
+.input-wrapper {
+  margin-bottom: 14px;
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-field {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-field:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-field.error {
+  border-color: #f87171;
+}
+
+.input-field.has-right {
+  padding-right: 42px;
+}
+
+.input-right-el {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-error-msg {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #ef4444;
+}
+
+/* ── Eye Button ── */
+.eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  padding: 0;
+  display: flex;
+}
+
+/* ── Error Alert ── */
+.error-alert {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: #ef4444;
+}
+
+/* ── Remember + Forgot ── */
+.remember-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+}
+
+.remember-checkbox {
+  width: 15px;
+  height: 15px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+.forgot-link {
+  font-size: 13px;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ── Submit Button ── */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.submit-btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* ── Switch Link ── */
+.switch-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.switch-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* ── Role Selector ── */
+.role-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.role-btn {
+  padding: 9px;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.role-btn.active {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+/* ── Success State ── */
+.success-wrap {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #dcfce7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success-title {
+  color: #1e293b;
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.success-desc {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.success-btn {
+  padding: 11px 32px;
+  border-radius: 8px;
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ── Right Panel ── */
+.right-panel {
+  flex: 1;
+  background: #f0f7ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 48px;
+}
+
+.right-panel-content {
+  width: 100%;
+  max-width: 420px;
+}
+
+.right-panel-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.right-panel-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.right-panel-desc {
+  font-size: 15px;
+  color: #475569;
+  margin: 0 0 36px;
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #dbeafe;
+  border: 2px solid #93c5fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.feature-desc {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   - ≤768px  (tablet): ẩn right panel
+   - ≤480px  (mobile): full width, padding nhỏ hơn
+   - ≤360px  (small mobile): title nhỏ hơn
+══════════════════════════════════════ */
+
+/* Tablet — ≤768px */
+@media (max-width: 768px) {
+  .auth-right {
+    display: none;
+  }
+
+  .auth-left {
+    width: 100%;
+    min-width: unset;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .auth-page {
+    justify-content: center;
+  }
+}
+
+/* Mobile — ≤480px */
+@media (max-width: 480px) {
+  .auth-left {
+    padding: 32px 20px;
+    justify-content: flex-start;
+    padding-top: 48px;
+  }
+
+  .auth-brand {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+
+  .auth-subtitle {
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+
+  .social-row {
+    flex-direction: column;
+  }
+
+  .social-btn {
+    width: 100%;
+  }
+
+  .remember-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .right-panel-title {
+    font-size: 28px;
+  }
+
+  .right-panel {
+    padding: 40px 24px;
+  }
+}
+
+/* Small mobile — ≤360px */
+@media (max-width: 360px) {
+  .auth-left {
+    padding: 24px 16px;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .input-field {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 11px;
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+}

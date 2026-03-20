@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./AuthPage.css";
 
 const API_BASE = "http://localhost:8000/api";
 
@@ -55,43 +56,25 @@ function TextInput({ label, type = "text", value, onChange, placeholder, error, 
   label: string; type?: string; value: string; onChange: (v: string) => void;
   placeholder?: string; error?: string; rightEl?: React.ReactNode;
 }) {
-  const [focused, setFocused] = useState(false);
   return (
-    <div style={{ marginBottom: "14px" }}>
-      <label style={{ display: "block", fontSize: "13px", fontWeight: 500, color: "#374151", marginBottom: "5px" }}>{label}</label>
-      <div style={{ position: "relative" }}>
+    <div className="input-wrapper">
+      <label className="input-label">{label}</label>
+      <div className="input-container">
         <input
           type={type} value={value} onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
-          onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
-          style={{
-            width: "100%", boxSizing: "border-box", padding: "11px 14px",
-            paddingRight: rightEl ? "42px" : "14px",
-            border: `1px solid ${error ? "#f87171" : focused ? "#3b82f6" : "#e2e8f0"}`,
-            borderRadius: "8px", fontSize: "14px", color: "#1e293b", outline: "none",
-            fontFamily: "inherit", background: "#fff", transition: "border-color 0.2s, box-shadow 0.2s",
-            boxShadow: focused ? "0 0 0 3px rgba(59,130,246,0.1)" : "none",
-          }}
+          className={`input-field ${error ? "error" : ""} ${rightEl ? "has-right" : ""}`}
         />
-        {rightEl && (
-          <span style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)" }}>{rightEl}</span>
-        )}
+        {rightEl && <span className="input-right-el">{rightEl}</span>}
       </div>
-      {error && <p style={{ margin: "4px 0 0", fontSize: "12px", color: "#ef4444" }}>{error}</p>}
+      {error && <p className="input-error-msg">{error}</p>}
     </div>
   );
 }
 
 function SocialBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
-  const [hover, setHover] = useState(false);
   return (
-    <button type="button" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-      style={{
-        flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-        padding: "10px", border: "1px solid #e2e8f0", borderRadius: "8px",
-        background: hover ? "#f8fafc" : "#fff", cursor: "pointer",
-        fontSize: "13px", fontWeight: 500, color: "#374151", fontFamily: "inherit", transition: "background 0.15s",
-      }}>
+    <button type="button" className="social-btn">
       {icon}{label}
     </button>
   );
@@ -123,56 +106,45 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+      <div className="social-row">
         <SocialBtn icon={<IconGoogle />} label="Continue with Google" />
         <SocialBtn icon={<IconFacebook />} label="Continue with Facebook" />
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-        <div style={{ flex: 1, height: "1px", background: "#e2e8f0" }} />
-        <span style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 500 }}>OR</span>
-        <div style={{ flex: 1, height: "1px", background: "#e2e8f0" }} />
+
+      <div className="or-divider">
+        <div className="or-divider-line" />
+        <span className="or-divider-text">OR</span>
+        <div className="or-divider-line" />
       </div>
 
       <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
-      <TextInput label="Password" type={showPw ? "text" : "password"} value={password} onChange={setPassword} placeholder="••••••••"
+      <TextInput
+        label="Password" type={showPw ? "text" : "password"}
+        value={password} onChange={setPassword} placeholder="••••••••"
         rightEl={
-          <button type="button" onClick={() => setShowPw(p => !p)}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8", padding: 0, display: "flex" }}>
+          <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
             <IconEye show={showPw} />
           </button>
         }
       />
 
-      {error && (
-        <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", padding: "10px 14px", marginBottom: "14px", fontSize: "13px", color: "#ef4444" }}>
-          {error}
-        </div>
-      )}
+      {error && <div className="error-alert">{error}</div>}
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-        <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "13px", color: "#374151" }}>
-          <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)}
-            style={{ width: "15px", height: "15px", accentColor: "#3b82f6", cursor: "pointer" }} />
+      <div className="remember-row">
+        <label className="remember-label">
+          <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} className="remember-checkbox" />
           Remember me
         </label>
-        <a href="#" style={{ fontSize: "13px", color: "#3b82f6", textDecoration: "none", fontWeight: 500 }}>Forgot password?</a>
+        <a href="#" className="forgot-link">Forgot password?</a>
       </div>
 
-      <button type="submit" disabled={loading} style={{
-        width: "100%", padding: "12px", borderRadius: "8px", border: "none",
-        background: loading ? "#93c5fd" : "#3b82f6", color: "#fff",
-        fontSize: "15px", fontWeight: 600, cursor: loading ? "not-allowed" : "pointer",
-        fontFamily: "inherit", transition: "background 0.2s",
-      }}>
+      <button type="submit" disabled={loading} className="submit-btn">
         {loading ? "Signing in..." : "Sign in"}
       </button>
 
-      <p style={{ textAlign: "center", marginTop: "18px", fontSize: "13px", color: "#64748b" }}>
+      <p className="switch-text">
         Don't have an account?{" "}
-        <button type="button" onClick={onSwitch}
-          style={{ background: "none", border: "none", color: "#3b82f6", cursor: "pointer", fontWeight: 600, fontSize: "13px", padding: 0, fontFamily: "inherit" }}>
-          Sign up
-        </button>
+        <button type="button" onClick={onSwitch} className="switch-btn">Sign up</button>
       </p>
     </form>
   );
@@ -218,17 +190,15 @@ function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
   if (success) {
     return (
-      <div style={{ textAlign: "center", padding: "32px 0" }}>
-        <div style={{ width: "56px", height: "56px", borderRadius: "50%", background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
+      <div className="success-wrap">
+        <div className="success-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h3 style={{ color: "#1e293b", margin: "0 0 8px", fontSize: "18px", fontWeight: 600 }}>Account created!</h3>
-        <p style={{ color: "#64748b", fontSize: "14px", margin: "0 0 24px" }}>Your account is ready. Sign in to get started.</p>
-        <button onClick={onSwitch} style={{ padding: "11px 32px", borderRadius: "8px", border: "none", background: "#3b82f6", color: "#fff", fontSize: "14px", fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
-          Sign in now
-        </button>
+        <h3 className="success-title">Account created!</h3>
+        <p className="success-desc">Your account is ready. Sign in to get started.</p>
+        <button onClick={onSwitch} className="success-btn">Sign in now</button>
       </div>
     );
   }
@@ -238,54 +208,37 @@ function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
       <TextInput label="Full name" value={fullName} onChange={setFullName} placeholder="Nguyen Van A" error={errors.fullName} />
       <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" error={errors.email} />
       <TextInput label="Username" value={username} onChange={setUsername} placeholder="username" error={errors.username} />
-      <TextInput label="Password" type={showPw ? "text" : "password"} value={password} onChange={setPassword} placeholder="Min. 6 characters" error={errors.password}
+      <TextInput
+        label="Password" type={showPw ? "text" : "password"}
+        value={password} onChange={setPassword} placeholder="Min. 6 characters" error={errors.password}
         rightEl={
-          <button type="button" onClick={() => setShowPw(p => !p)}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8", padding: 0, display: "flex" }}>
+          <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
             <IconEye show={showPw} />
           </button>
         }
       />
       <TextInput label="Confirm password" type={showPw ? "text" : "password"} value={password2} onChange={setPassword2} placeholder="Re-enter password" error={errors.password2} />
 
-      <div style={{ marginBottom: "18px" }}>
-        <label style={{ display: "block", fontSize: "13px", fontWeight: 500, color: "#374151", marginBottom: "6px" }}>Role</label>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+      <div>
+        <label className="role-label">Role</label>
+        <div className="role-grid">
           {(["student", "professor"] as Role[]).map(r => (
-            <button key={r} type="button" onClick={() => setRole(r)} style={{
-              padding: "9px", borderRadius: "8px",
-              border: `1.5px solid ${role === r ? "#3b82f6" : "#e2e8f0"}`,
-              background: role === r ? "#eff6ff" : "#fff",
-              color: role === r ? "#2563eb" : "#64748b",
-              fontWeight: 500, fontSize: "13px", cursor: "pointer", transition: "all 0.15s", fontFamily: "inherit",
-            }}>
+            <button key={r} type="button" onClick={() => setRole(r)} className={`role-btn ${role === r ? "active" : ""}`}>
               {r === "student" ? "Student" : "Professor"}
             </button>
           ))}
         </div>
       </div>
 
-      {errors.non_field_errors && (
-        <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", padding: "10px 14px", marginBottom: "14px", fontSize: "13px", color: "#ef4444" }}>
-          {errors.non_field_errors}
-        </div>
-      )}
+      {errors.non_field_errors && <div className="error-alert">{errors.non_field_errors}</div>}
 
-      <button type="submit" disabled={loading} style={{
-        width: "100%", padding: "12px", borderRadius: "8px", border: "none",
-        background: loading ? "#93c5fd" : "#3b82f6", color: "#fff",
-        fontSize: "15px", fontWeight: 600, cursor: loading ? "not-allowed" : "pointer",
-        fontFamily: "inherit", transition: "background 0.2s",
-      }}>
+      <button type="submit" disabled={loading} className="submit-btn">
         {loading ? "Creating account..." : "Create account"}
       </button>
 
-      <p style={{ textAlign: "center", marginTop: "18px", fontSize: "13px", color: "#64748b" }}>
+      <p className="switch-text">
         Already have an account?{" "}
-        <button type="button" onClick={onSwitch}
-          style={{ background: "none", border: "none", color: "#3b82f6", cursor: "pointer", fontWeight: 600, fontSize: "13px", padding: 0, fontFamily: "inherit" }}>
-          Sign in
-        </button>
+        <button type="button" onClick={onSwitch} className="switch-btn">Sign in</button>
       </p>
     </form>
   );
@@ -298,33 +251,33 @@ function RightPanel() {
     { title: "Collaborate", desc: "Connect with students and professors" },
   ];
   return (
-    <div style={{ flex: 1, background: "#f0f7ff", display: "flex", flexDirection: "column", justifyContent: "center", padding: "60px 48px" }}>
-      <div style={{ width: "52px", height: "52px", borderRadius: "12px", background: "#1e293b", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "28px" }}>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-      </div>
-      <h2 style={{ fontSize: "36px", fontWeight: 700, color: "#0f172a", margin: "0 0 14px", lineHeight: 1.2 }}>
-        Learn smarter<br />with AI
-      </h2>
-      <p style={{ fontSize: "15px", color: "#475569", margin: "0 0 36px 50px", lineHeight: 1.7, maxWidth: "340px" }}>
-        Online learning Portal brings your courses to life with intelligent study tools, seamless assignment tracking, and real-time progress insights.
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {features.map((f, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            <div style={{ width: "22px", height: "22px", borderRadius: "50%", background: "#dbeafe", border: "2px solid #93c5fd", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "1px" }}>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
+    <div className="right-panel">
+      <div className="right-panel-content">
+        <div className="right-panel-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <h2 className="right-panel-title">Learn smarter<br />with AI</h2>
+        <p className="right-panel-desc">
+          Online learning Portal brings your courses to life with intelligent study tools, seamless assignment tracking, and real-time progress insights.
+        </p>
+        <div className="feature-list">
+          {features.map((f, i) => (
+            <div key={i} className="feature-item">
+              <div className="feature-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
+                <div className="feature-title">{f.title}</div>
+                <div className="feature-desc">{f.desc}</div>
+              </div>
             </div>
-            <div>
-              <div style={{ fontSize: "14px", fontWeight: 600, color: "#0f172a" }}>{f.title}</div>
-              <div style={{ fontSize: "13px", color: "#64748b" }}>{f.desc}</div>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -333,20 +286,23 @@ function RightPanel() {
 export default function AuthPage() {
   const [tab, setTab] = useState<Tab>("login");
   return (
-    <div style={{ minHeight: "100vh", display: "flex", fontFamily: "'Inter', 'Segoe UI', sans-serif", background: "#fff" }}>
-      <div style={{ width: "480px", minWidth: "380px", padding: "48px 52px", display: "flex", flexDirection: "column", justifyContent: "center", overflowY: "auto" }}>
-        <div style={{ marginBottom: "36px" }}>
-          <span style={{ fontSize: "22px", fontWeight: 700, color: "#0f172a", fontStyle: "italic" }}>Online Learning Portal</span>
-        </div>
-        <h1 style={{ fontSize: "26px", fontWeight: 700, color: "#0f172a", margin: "0 0 6px" }}>
+    <div className="auth-page">
+      <div className="auth-left">
+        <div className="auth-brand">Online Learning Portal</div>
+        <h1 className="auth-title">
           {tab === "login" ? "Welcome back" : "Create an account"}
         </h1>
-        <p style={{ fontSize: "14px", color: "#64748b", margin: "0 0 28px" }}>
+        <p className="auth-subtitle">
           {tab === "login" ? "Enter your credentials to access your account" : "Fill in the details below to get started"}
         </p>
-        {tab === "login" ? <LoginForm onSwitch={() => setTab("register")} /> : <RegisterForm onSwitch={() => setTab("login")} />}
+        {tab === "login"
+          ? <LoginForm onSwitch={() => setTab("register")} />
+          : <RegisterForm onSwitch={() => setTab("login")} />
+        }
       </div>
-      <RightPanel />
+      <div className="auth-right">
+        <RightPanel />
+      </div>
     </div>
   );
 }
