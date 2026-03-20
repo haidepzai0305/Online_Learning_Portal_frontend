@@ -106,18 +106,8 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="social-row">
-        <SocialBtn icon={<IconGoogle />} label="Continue with Google" />
-        <SocialBtn icon={<IconFacebook />} label="Continue with Facebook" />
-      </div>
-
-      <div className="or-divider">
-        <div className="or-divider-line" />
-        <span className="or-divider-text">OR</span>
-        <div className="or-divider-line" />
-      </div>
-
       <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
+
       <TextInput
         label="Password" type={showPw ? "text" : "password"}
         value={password} onChange={setPassword} placeholder="••••••••"
@@ -141,6 +131,17 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
       <button type="submit" disabled={loading} className="submit-btn">
         {loading ? "Signing in..." : "Sign in"}
       </button>
+
+      <div className="or-divider" style={{ marginTop: "20px" }}>
+        <div className="or-divider-line" />
+        <span className="or-divider-text">OR</span>
+        <div className="or-divider-line" />
+      </div>
+
+      <div className="social-row">
+        <SocialBtn icon={<IconGoogle />} label="Continue with Google" />
+        <SocialBtn icon={<IconFacebook />} label="Continue with Facebook" />
+      </div>
 
       <p className="switch-text">
         Don't have an account?{" "}
@@ -218,17 +219,6 @@ function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         }
       />
       <TextInput label="Confirm password" type={showPw ? "text" : "password"} value={password2} onChange={setPassword2} placeholder="Re-enter password" error={errors.password2} />
-
-      <div>
-        <label className="role-label">Role</label>
-        <div className="role-grid">
-          {(["student", "professor"] as Role[]).map(r => (
-            <button key={r} type="button" onClick={() => setRole(r)} className={`role-btn ${role === r ? "active" : ""}`}>
-              {r === "student" ? "Student" : "Professor"}
-            </button>
-          ))}
-        </div>
-      </div>
 
       {errors.non_field_errors && <div className="error-alert">{errors.non_field_errors}</div>}
 
