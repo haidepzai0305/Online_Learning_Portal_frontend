@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -111,6 +114,14 @@ code {
 }
 /* Override #root cho AuthPage */
 #root:has(.auth-page) {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+  border-inline: none;
+  display: block;
+}
+#root:has(.min-h-screen) {
   width: 100%;
   max-width: 100%;
   margin: 0;
