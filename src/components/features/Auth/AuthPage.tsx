@@ -4,6 +4,7 @@ import "./AuthPage.css";
 
 const API_BASE = "http://localhost:8000/api";
 
+type Role = "student" | "professor";
 type Tab = "login" | "register";
 
 async function loginRequest(email: string, password: string) {
@@ -13,13 +14,12 @@ async function loginRequest(email: string, password: string) {
 
 async function registerRequest(data: {
   username: string; email: string; password: string;
-  password2: string; role: string; full_name: string;
+  password2: string; role: Role; full_name: string;
 }) {
   const res = await axios.post(`${API_BASE}/auth/register/`, data);
   return res.data;
 }
 
-// ─── Icons ────────────────────────────────────────────────────────────────────
 function IconGoogle() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -31,13 +31,10 @@ function IconGoogle() {
   );
 }
 
-function IconMicrosoft() {
+function IconFacebook() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <rect x="1" y="1" width="10.5" height="10.5" fill="#F25022"/>
-      <rect x="12.5" y="1" width="10.5" height="10.5" fill="#7FBA00"/>
-      <rect x="1" y="12.5" width="10.5" height="10.5" fill="#00A4EF"/>
-      <rect x="12.5" y="12.5" width="10.5" height="10.5" fill="#FFB900"/>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
     </svg>
   );
 }
@@ -55,10 +52,9 @@ function IconEye({ show }: { show: boolean }) {
   );
 }
 
-// ─── Text Input ───────────────────────────────────────────────────────────────
-function TextInput({ label, type = "text", value, onChange, placeholder, error, rightEl, children }: {
+function TextInput({ label, type = "text", value, onChange, placeholder, error, rightEl }: {
   label: string; type?: string; value: string; onChange: (v: string) => void;
-  placeholder?: string; error?: string; rightEl?: React.ReactNode; children?: React.ReactNode;
+  placeholder?: string; error?: string; rightEl?: React.ReactNode;
 }) {
   return (
     <div className="input-wrapper">
@@ -71,48 +67,11 @@ function TextInput({ label, type = "text", value, onChange, placeholder, error, 
         />
         {rightEl && <span className="input-right-el">{rightEl}</span>}
       </div>
-      {children}
       {error && <p className="input-error-msg">{error}</p>}
     </div>
   );
 }
 
-// ─── Password Requirements ────────────────────────────────────────────────────
-function PasswordRequirements({ password }: { password: string }) {
-  const rules = [
-    { label: "At least 8 characters", ok: password.length >= 8 },
-    { label: "Starts with uppercase letter", ok: /^[A-Z]/.test(password) },
-    { label: "Contains letters and numbers", ok: /[a-zA-Z]/.test(password) && /[0-9]/.test(password) },
-    { label: "Contains a special character", ok: /[^a-zA-Z0-9]/.test(password) },
-  ];
-
-  if (!password) return null;
-
-  return (
-    <div className="pw-requirements">
-      {rules.map((r, i) => (
-        <div key={i} className={`pw-rule ${r.ok ? "ok" : "fail"}`}>
-          <span className="pw-rule-icon">{r.ok ? "✓" : "○"}</span>
-          <span>{r.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// ─── Email Format Hint ────────────────────────────────────────────────────────
-function EmailHint({ email }: { email: string }) {
-  if (!email) return null;
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  return (
-    <div className={`email-hint ${valid ? "ok" : "fail"}`}>
-      <span className="pw-rule-icon">{valid ? "✓" : "○"}</span>
-      <span>{valid ? "Valid email format" : "Enter a valid email (e.g. you@example.com)"}</span>
-    </div>
-  );
-}
-
-// ─── Social Button ────────────────────────────────────────────────────────────
 function SocialBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <button type="button" className="social-btn">
@@ -121,46 +80,6 @@ function SocialBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
   );
 }
 
-// ─── Terms Modal ──────────────────────────────────────────────────────────────
-function TermsModal({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2 className="modal-title">Terms of Service</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
-        </div>
-        <div className="modal-body">
-          <h3>1. Acceptance of Terms</h3>
-          <p>By creating an account on Online Learning Portal, you agree to be bound by these Terms of Service. If you do not agree, please do not use our platform.</p>
-
-          <h3>2. Account Registration</h3>
-          <p>You must provide accurate and complete information when registering. You are responsible for maintaining the confidentiality of your account credentials.</p>
-
-          <h3>3. Acceptable Use</h3>
-          <p>You agree to use the platform only for lawful purposes. You must not share, copy, or distribute any course content without permission. You must not impersonate other users or instructors.</p>
-
-          <h3>4. Intellectual Property</h3>
-          <p>All course content, materials, and resources on this platform are the intellectual property of Online Learning Portal or its instructors. Unauthorized use is strictly prohibited.</p>
-
-          <h3>5. Privacy Policy</h3>
-          <p>Your personal data will be handled in accordance with our Privacy Policy. We collect data such as your name, email, and learning activity to improve your experience.</p>
-
-          <h3>6. Termination</h3>
-          <p>We reserve the right to suspend or terminate accounts that violate these terms without prior notice.</p>
-
-          <h3>7. Changes to Terms</h3>
-          <p>We may update these terms from time to time. Continued use of the platform after changes constitutes your acceptance of the new terms.</p>
-        </div>
-        <div className="modal-footer">
-          <button className="modal-accept-btn" onClick={onClose}>I Understand</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Login Form ───────────────────────────────────────────────────────────────
 function LoginForm({ onSwitch }: { onSwitch: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -187,18 +106,8 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="social-row">
-        <SocialBtn icon={<IconGoogle />} label="Continue with Google" />
-        <SocialBtn icon={<IconMicrosoft />} label="Continue with Microsoft" />
-      </div>
-
-      <div className="or-divider">
-        <div className="or-divider-line" />
-        <span className="or-divider-text">OR</span>
-        <div className="or-divider-line" />
-      </div>
-
       <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
+
       <TextInput
         label="Password" type={showPw ? "text" : "password"}
         value={password} onChange={setPassword} placeholder="••••••••"
@@ -223,6 +132,17 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
         {loading ? "Signing in..." : "Sign in"}
       </button>
 
+      <div className="or-divider" style={{ marginTop: "20px" }}>
+        <div className="or-divider-line" />
+        <span className="or-divider-text">OR</span>
+        <div className="or-divider-line" />
+      </div>
+
+      <div className="social-row">
+        <SocialBtn icon={<IconGoogle />} label="Continue with Google" />
+        <SocialBtn icon={<IconFacebook />} label="Continue with Facebook" />
+      </div>
+
       <p className="switch-text">
         Don't have an account?{" "}
         <button type="button" onClick={onSwitch} className="switch-btn">Sign up</button>
@@ -231,37 +151,25 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
   );
 }
 
-// ─── Register Form ────────────────────────────────────────────────────────────
 function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [role, setRole] = useState<Role>("student");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
-
-  const pwValid = {
-    length: password.length >= 8,
-    uppercase: /^[A-Z]/.test(password),
-    alphanumeric: /[a-zA-Z]/.test(password) && /[0-9]/.test(password),
-    special: /[^a-zA-Z0-9]/.test(password),
-  };
-  const passwordOk = Object.values(pwValid).every(Boolean);
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   function validate() {
     const e: Record<string, string> = {};
     if (!fullName.trim()) e.fullName = "Please enter your full name.";
-    if (!emailOk) e.email = "Invalid email address.";
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = "Invalid email address.";
     if (username.length < 3) e.username = "Min. 3 characters.";
-    if (!passwordOk) e.password = "Password does not meet all requirements.";
+    if (password.length < 6) e.password = "Min. 6 characters.";
     if (password !== password2) e.password2 = "Passwords do not match.";
-    if (!agreedToTerms) e.terms = "You must agree to the Terms of Service.";
     return e;
   }
 
@@ -271,7 +179,7 @@ function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true); setErrors({});
     try {
-      await registerRequest({ username, email, password, password2, role: "student", full_name: fullName });
+      await registerRequest({ username, email, password, password2, role, full_name: fullName });
       setSuccess(true);
     } catch (err: any) {
       const data = err?.response?.data ?? {};
@@ -297,72 +205,35 @@ function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
   }
 
   return (
-    <>
-      {showTerms && <TermsModal onClose={() => setShowTerms(false)} />}
+    <form onSubmit={handleSubmit} noValidate>
+      <TextInput label="Full name" value={fullName} onChange={setFullName} placeholder="Nguyen Van A" error={errors.fullName} />
+      <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" error={errors.email} />
+      <TextInput label="Username" value={username} onChange={setUsername} placeholder="username" error={errors.username} />
+      <TextInput
+        label="Password" type={showPw ? "text" : "password"}
+        value={password} onChange={setPassword} placeholder="Min. 6 characters" error={errors.password}
+        rightEl={
+          <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
+            <IconEye show={showPw} />
+          </button>
+        }
+      />
+      <TextInput label="Confirm password" type={showPw ? "text" : "password"} value={password2} onChange={setPassword2} placeholder="Re-enter password" error={errors.password2} />
 
-      <form onSubmit={handleSubmit} noValidate>
-        <TextInput label="Full name" value={fullName} onChange={setFullName} placeholder="Nguyen Van A" error={errors.fullName} />
+      {errors.non_field_errors && <div className="error-alert">{errors.non_field_errors}</div>}
 
-        <TextInput label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" error={errors.email}>
-          <EmailHint email={email} />
-        </TextInput>
+      <button type="submit" disabled={loading} className="submit-btn">
+        {loading ? "Creating account..." : "Create account"}
+      </button>
 
-        <TextInput label="Username" value={username} onChange={setUsername} placeholder="username" error={errors.username} />
-
-        <TextInput
-          label="Password" type={showPw ? "text" : "password"}
-          value={password} onChange={setPassword} placeholder="Min. 8 characters" error={errors.password}
-          rightEl={
-            <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
-              <IconEye show={showPw} />
-            </button>
-          }
-        >
-          <PasswordRequirements password={password} />
-        </TextInput>
-
-        <TextInput
-          label="Confirm password" type={showPw ? "text" : "password"}
-          value={password2} onChange={setPassword2} placeholder="Re-enter password" error={errors.password2}
-        />
-
-        {/* Terms checkbox */}
-        <div className="terms-row">
-          <label className="remember-label">
-            <input
-              type="checkbox"
-              checked={agreedToTerms}
-              onChange={e => setAgreedToTerms(e.target.checked)}
-              className="remember-checkbox"
-            />
-            I agree to the{" "}
-            <button
-              type="button"
-              className="terms-link"
-              onClick={() => setShowTerms(true)}
-            >
-              Terms of Service
-            </button>
-          </label>
-          {errors.terms && <p className="input-error-msg">{errors.terms}</p>}
-        </div>
-
-        {errors.non_field_errors && <div className="error-alert">{errors.non_field_errors}</div>}
-
-        <button type="submit" disabled={loading} className="submit-btn">
-          {loading ? "Creating account..." : "Create account"}
-        </button>
-
-        <p className="switch-text">
-          Already have an account?{" "}
-          <button type="button" onClick={onSwitch} className="switch-btn">Sign in</button>
-        </p>
-      </form>
-    </>
+      <p className="switch-text">
+        Already have an account?{" "}
+        <button type="button" onClick={onSwitch} className="switch-btn">Sign in</button>
+      </p>
+    </form>
   );
 }
 
-// ─── Right Panel ──────────────────────────────────────────────────────────────
 function RightPanel() {
   const features = [
     { title: "AI Study Assistant", desc: "Get instant explanations and summaries" },
@@ -402,7 +273,6 @@ function RightPanel() {
   );
 }
 
-// ─── Auth Page ────────────────────────────────────────────────────────────────
 export default function AuthPage() {
   const [tab, setTab] = useState<Tab>("login");
   return (
