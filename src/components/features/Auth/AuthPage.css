@@ -226,6 +226,54 @@
   color: #ef4444;
 }
 
+.status-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  width: min(360px, calc(100vw - 32px));
+  border-radius: 14px;
+  padding: 16px 44px 16px 16px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+  border: 1px solid transparent;
+  background: #fff;
+}
+
+.status-popup.success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.status-popup.error {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.status-popup-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.status-popup-message {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.status-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 /* ── Remember + Forgot ── */
 .remember-row {
   display: flex;
@@ -260,6 +308,11 @@
 /* ── Terms Row ── */
 .terms-row {
   margin-bottom: 18px;
+}
+
+.terms-row .remember-label {
+  align-items: flex-start;
+  line-height: 1.5;
 }
 
 .terms-link {

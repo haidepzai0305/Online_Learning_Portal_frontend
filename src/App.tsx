@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import AuthPage from "./components/features/Auth/AuthPage";
-import { HomeScreen } from "./components/features/Home/HomeScreen";
-import { HeroSection } from "./components/features/home/HeroSection";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import AuthPage from "./components/features/Auth/AuthPage";
+import { HomeScreen } from "./components/features/home/HomeScreen";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [userName, setUserName] = useState("User");
-  const [userProgress, setUserProgress] = useState(65);
+  const [userProgress] = useState(65);
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -24,39 +23,37 @@ function App() {
         <Route
           path="/auth"
           element={
-            isAuthenticated
-              ? <Navigate to="/" replace />
-              : <AuthPage onLoginSuccess={(name: string) => {
+            isAuthenticated ? (
+              <Navigate to="/" replace />
+            ) : (
+              <AuthPage
+                onLoginSuccess={(name: string) => {
                   setIsAuthenticated(true);
                   setUserName(name);
-                }} />
+                }}
+              />
+            )
           }
         />
+
         <Route
           path="/"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["student", "professor"]}>
-              <HomeScreen userName={userName} onLogout={() => setIsAuthenticated(false)} />
+              <HomeScreen userName={userName} onLogout={handleLogout} progress={userProgress} />
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/"
-          element={
-            isAuthenticated
-              ? <HomeScreen userName={userName} onLogout={handleLogout} progress={userProgress}/>
-              : <Navigate to="/auth" replace />
-          }
-        />
+
         <Route
           path="/manage-courses"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["professor"]}>
-              <div className="text-white">Trang quản lý dành cho Giáo sư</div>
+              <div className="text-white">Trang quan ly danh cho Giao su</div>
             </ProtectedRoute>
           }
         />
-        {/* Catch all */}
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
