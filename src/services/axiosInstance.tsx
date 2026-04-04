@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
+const REFRESH_PATH = import.meta.env.VITE_AUTH_REFRESH_PATH ?? "/auth/token/refresh/";
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -33,7 +36,7 @@ axiosInstance.interceptors.response.use(
       if (refreshToken) {
         try {
           // Gọi API refresh token
-          const res = await axios.post("http://localhost:8000/api/token/refresh/", {
+          const res = await axios.post(`${API_BASE_URL}${REFRESH_PATH}`, {
             refresh: refreshToken,
           });
 

@@ -3,57 +3,57 @@ import type { HomeScreenData } from "./home.types";
 export const mockHomeScreenData: HomeScreenData = {
   hero: {
     userNameFallback: "Son",
-    searchPlaceholder: "Tim khoa hoc: Cyber Security, Big Data...",
+    searchPlaceholder: "Tìm khóa học: Cyber Security, Big Data...",
     badgeText: "AI powered learning mode",
     headline: "Master the Core",
     highlightedHeadline: "Secure your Future.",
-    greeting: "Chao {userName}, AI Assistant da chuan bi lo trinh hoc toi uu cho ban. Bat dau ngay.",
-    primaryCta: "get started",
-    secondaryCta: "let's explore",
+    greeting: "Chào {userName}, AI Assistant đã chuẩn bị lộ trình học tối ưu cho bạn. Bắt đầu ngay.",
+    primaryCta: "bắt đầu",
+    secondaryCta: "khám phá",
     streakFrames: [
-      { value: "7", label: "Ngay hoc lien tiep", detail: "7/10 ngay · Keep going!" },
-      { value: "8", label: "Ngay hoc lien tiep", detail: "8/10 ngay · Momentum on" },
-      { value: "9", label: "Ngay hoc lien tiep", detail: "9/10 ngay · Almost there" },
+      { value: "7", label: "Ngày học liên tiếp", detail: "7/10 ngày • Giữ nhịp học!" },
+      { value: "8", label: "Ngày học liên tiếp", detail: "8/10 ngày • Đang vào guồng" },
+      { value: "9", label: "Ngày học liên tiếp", detail: "9/10 ngày • Sắp hoàn thành" },
     ],
     expFrames: [
-      { exp: "12,450", rank: "Top 5% Cyber Defender", delta: "+250" },
-      { exp: "12,700", rank: "Top 4% Cyber Defender", delta: "+190" },
-      { exp: "12,890", rank: "Top 4% Cyber Defender", delta: "+320" },
+      { exp: "12,450", rank: "Top 5% Backend Developer", delta: "+250" },
+      { exp: "12,700", rank: "Top 4% Frontend Developer", delta: "+190" },
+      { exp: "12,890", rank: "Top 4% Data Engineer", delta: "+320" },
     ],
     labFrames: [
       {
         title: "SQL Injection Vulnerability Lab",
-        detail: "Thuc hanh phat hien va khai thac lo hong SQL injection",
-        status: "Ready to start",
-        cta: "Start",
+        detail: "Thực hành phát hiện và khai thác lỗ hổng SQL injection",
+        status: "Sẵn sàng bắt đầu",
+        cta: "Bắt đầu",
       },
       {
         title: "Network Packet Analyzer Lab",
-        detail: "Theo doi packet flow va nhan dien traffic bat thuong",
-        status: "Warmup loaded",
-        cta: "Launch",
+        detail: "Theo dõi packet flow và nhận diện traffic bất thường",
+        status: "Đã thêm tình huống",
+        cta: "Mở lab",
       },
       {
         title: "SOC Incident Response Lab",
-        detail: "Xu ly alert, phan tich log va khoanh vung su co",
-        status: "Scenario active",
-        cta: "Resume",
+        detail: "Xử lý alert, phân tích log và khoanh vùng sự cố",
+        status:  "đang chạy",
+        cta: "Tiếp tục",
       },
     ],
     insightFrames: [
-      { value: 80, note: "Ban da hoan thanh 80% lo trinh Big Data" },
-      { value: 84, note: "Tien do tang len 84%, tiep tuc bai tiep theo" },
-      { value: 88, note: "Tien do dat 88%, da san sang cho bai test" },
+      { value: 80, note: "Bạn đã hoàn thành 80% lộ trình Big Data" },
+      { value: 84, note: "Tiến độ tăng lên 84%, tiếp tục bài tiếp theo" },
+      { value: 88, note: "Tiến độ đạt 88%, đã sẵn sàng cho bài test" },
     ],
     featureCards: [
-      { title: "Phu de/Tai lieu chuan", icon: "book" },
-      { title: "Lo trinh AI ca nhan hoa", icon: "brain" },
-      { title: "Video Full HD voi subtitle", icon: "shield" },
+      { title: "Phụ đề và tài liệu chuẩn", icon: "book" },
+      { title: "Lộ trình AI cá nhân hóa", icon: "brain" },
+      { title: "Video Full HD kèm subtitle", icon: "shield" },
     ],
   },
   catalog: {
     categories: [
-      { id: "all", name: "Tat ca" },
+      { id: "all", name: "Tất cả" },
       { id: "python", name: "Python" },
       { id: "cybersecurity", name: "Cyber Security" },
       { id: "webdev", name: "Web Dev" },
@@ -64,8 +64,8 @@ export const mockHomeScreenData: HomeScreenData = {
     courses: [
       {
         id: "1",
-        title: "Python cho nguoi moi bat dau - Tu Zero den Hero",
-        instructor: "Nguyen Van A",
+        title: "Python cho người mới bắt đầu - Từ Zero đến Hero",
+        instructor: "Nguyễn Văn A",
         thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop",
         rating: 4.8,
         reviewCount: 2543,
@@ -79,7 +79,7 @@ export const mockHomeScreenData: HomeScreenData = {
       {
         id: "2",
         title: "Ethical Hacking & Penetration Testing Complete Course",
-        instructor: "Tran Minh B",
+        instructor: "Trần Minh B",
         thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop",
         rating: 4.9,
         reviewCount: 1876,
@@ -92,8 +92,8 @@ export const mockHomeScreenData: HomeScreenData = {
       },
       {
         id: "3",
-        title: "Full Stack Web Development voi React & Node.js",
-        instructor: "Le Thi C",
+        title: "Full Stack Web Development với React & Node.js",
+        instructor: "Lê Thị C",
         thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
         rating: 4.7,
         reviewCount: 3421,
@@ -107,7 +107,7 @@ export const mockHomeScreenData: HomeScreenData = {
       {
         id: "4",
         title: "Machine Learning & Deep Learning A-Z",
-        instructor: "Pham Van D",
+        instructor: "Phạm Văn D",
         thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop",
         rating: 4.8,
         reviewCount: 2198,
@@ -121,7 +121,7 @@ export const mockHomeScreenData: HomeScreenData = {
       {
         id: "5",
         title: "Docker & Kubernetes - DevOps Masterclass",
-        instructor: "Hoang Van E",
+        instructor: "Hoàng Văn E",
         thumbnail: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=300&fit=crop",
         rating: 4.6,
         reviewCount: 1543,
@@ -134,8 +134,8 @@ export const mockHomeScreenData: HomeScreenData = {
       },
       {
         id: "6",
-        title: "React Native - Xay dung ung dung Mobile",
-        instructor: "Ngo Thi F",
+        title: "React Native - Xây dựng ứng dụng Mobile",
+        instructor: "Ngô Thị F",
         thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
         rating: 4.7,
         reviewCount: 1876,
@@ -148,8 +148,8 @@ export const mockHomeScreenData: HomeScreenData = {
       },
       {
         id: "7",
-        title: "Python Data Analysis voi Pandas & NumPy",
-        instructor: "Vu Minh G",
+        title: "Python Data Analysis với Pandas & NumPy",
+        instructor: "Vũ Minh G",
         thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
         rating: 4.9,
         reviewCount: 2876,
@@ -163,7 +163,7 @@ export const mockHomeScreenData: HomeScreenData = {
       {
         id: "8",
         title: "Network Security & Firewall Fundamentals",
-        instructor: "Dinh Van H",
+        instructor: "Đinh Văn H",
         thumbnail: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=400&h=300&fit=crop",
         rating: 4.5,
         reviewCount: 987,
@@ -178,21 +178,26 @@ export const mockHomeScreenData: HomeScreenData = {
     sections: [
       {
         title: "Python & Data Science",
-        subtitle: "Nam vung ngon ngu lap trinh pho bien nhat the gioi",
+        subtitle: "Nắm vững ngôn ngữ lập trình phổ biến nhất thế giới",
         categoryIds: ["python", "datascience"],
       },
       {
         title: "Cyber Security",
-        subtitle: "Bao ve he thong va du lieu khoi cac moi de doa",
+        subtitle: "Bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa",
         categoryIds: ["cybersecurity"],
       },
       {
         title: "Web & Mobile Development",
-        subtitle: "Xay dung ung dung hien dai voi cac cong nghe moi nhat",
+        subtitle: "Xây dựng ứng dụng hiện đại với các công nghệ mới nhất",
         categoryIds: ["webdev", "mobile"],
       },
     ],
   },
+  footerSocials: [
+    { label: "Facebook", href: "#" },
+    { label: "X", href: "#" },
+    { label: "Discord", href: "#" },
+  ],
 };
 
 export async function loadHomeScreenData(): Promise<HomeScreenData> {

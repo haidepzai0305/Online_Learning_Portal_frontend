@@ -1,11 +1,16 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
-import axios from "axios";
 import "./AuthPage.css";
-
-const API_BASE = "http://localhost:8000/api";
+import {
+  fetchCurrentUser,
+  getAccessToken,
+  getUserDisplayName,
+  getUserRole,
+  loginRequest,
+  registerRequest,
+  type UserRole,
+} from "../../../services/authService";
 const PASSWORD_SPECIAL_CHAR_REGEX = /[^A-Za-z0-9]/;
 
-type Role = "student" | "professor";
 type Tab = "login" | "register";
 type PopupTone = "success" | "error";
 
@@ -17,23 +22,6 @@ interface PopupState {
 
 interface AuthPageProps {
   onLoginSuccess?: (name: string) => void;
-}
-
-async function loginRequest(email: string, password: string) {
-  const res = await axios.post(`${API_BASE}/token/`, { username: email, password });
-  return res.data;
-}
-
-async function registerRequest(data: {
-  username: string;
-  email: string;
-  password: string;
-  password2: string;
-  role: Role;
-  full_name: string;
-}) {
-  const res = await axios.post(`${API_BASE}/auth/register/`, data);
-  return res.data;
 }
 
 function IconGoogle() {
@@ -216,13 +204,33 @@ function LoginForm({
 
     try {
       const data = await loginRequest(email, password);
-      localStorage.setItem("access_token", data.access);
-      localStorage.setItem("refresh_token", data.refresh);
-      localStorage.setItem("user_role", data.role ?? "student");
+      const accessToken = getAccessToken(data);
+      if (!accessToken) {
+        throw new Error("Backend login response does not contain an access token.");
+      }
+
+      localStorage.setItem("access_token", accessToken);
+      if (data.refresh) {
+        localStorage.setItem("refresh_token", data.refresh);
+      } else {
+        localStorage.removeItem("refresh_token");
+      }
+
+      let currentUser;
+      try {
+        currentUser = await fetchCurrentUser();
+      } catch {
+        currentUser = undefined;
+      }
+
+      const role = getUserRole(data, currentUser);
+      const displayName = getUserDisplayName(data, email, currentUser);
+
+      localStorage.setItem("user_role", role);
       if (remember) {
         localStorage.setItem("remember_user", email);
       }
-      onLoginSuccess?.(data.full_name ?? data.username ?? email);
+      onLoginSuccess?.(displayName);
       showPopup({
         tone: "success",
         title: "Dang nhap thanh cong",
@@ -230,10 +238,14 @@ function LoginForm({
       });
 
       window.setTimeout(() => {
-        window.location.href = (data.role ?? "student") === "professor" ? "/manage-courses" : "/";
+        window.location.href = role === "professor" ? "/manage-courses" : "/";
       }, 900);
     } catch (err: any) {
-      const message = err?.response?.data?.detail ?? "Incorrect username or password.";
+      const message =
+        err?.response?.data?.detail ??
+        err?.response?.data?.message ??
+        err?.message ??
+        "Incorrect email or password.";
       setError(message);
       showPopup({ tone: "error", title: "Dang nhap that bai", message });
     } finally {
@@ -310,7 +322,7 @@ function RegisterForm({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [role] = useState<Role>("student");
+  const [role] = useState<UserRole>("student");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

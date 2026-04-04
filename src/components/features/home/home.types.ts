@@ -50,6 +50,11 @@ export interface HomeCategory {
   name: string;
 }
 
+export interface HomeSocialLink {
+  label: string;
+  href: string;
+}
+
 export interface HomeCourseSection {
   title: string;
   subtitle: string;
@@ -65,4 +70,5 @@ export interface HomeCatalogData {
 export interface HomeScreenData {
   hero: HomeHeroData;
   catalog: HomeCatalogData;
+  footerSocials: HomeSocialLink[];
 }

@@ -24,24 +24,24 @@ export function DisplaySection({ catalogData = mockHomeScreenData.catalog }: Dis
   }));
 
   return (
-    <section className="bg-slate-100 py-12 sm:py-16 lg:py-20">
+    <section id="courses" className="bg-slate-100 py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="mb-2 inline-flex items-center gap-2 text-teal-600">
               <Sparkles size={18} />
-              <span className="text-sm font-medium">Kham pha</span>
+              <span className="text-sm font-medium">Khám phá</span>
             </div>
             <h2 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-              Khoa hoc duoc danh gia cao
+              Khóa học được đánh giá cao
             </h2>
             <p className="max-w-2xl text-sm text-gray-600 sm:text-base">
-              Kham pha cac khoa hoc chat luong cao tu cac chuyen gia hang dau trong nganh
+              Khám phá các khóa học chất lượng cao từ các chuyên gia hàng đầu trong ngành
             </p>
           </div>
           <button className="self-start whitespace-nowrap text-sm font-medium text-teal-600 hover:text-teal-700 sm:self-auto sm:text-base">
             <span className="flex items-center gap-1">
-              Xem tat ca <ChevronRight size={16} />
+              Xem tất cả <ChevronRight size={16} />
             </span>
           </button>
         </div>
@@ -71,7 +71,7 @@ export function DisplaySection({ catalogData = mockHomeScreenData.catalog }: Dis
         {filteredCourses.length > 8 ? (
           <div className="mt-8 text-center sm:mt-10">
             <button className="rounded-lg bg-teal-500 px-6 py-3 font-medium text-white transition-colors hover:bg-teal-600 sm:px-8">
-              Xem them khoa hoc
+              Xem thêm khóa học
             </button>
           </div>
         ) : null}
@@ -115,7 +115,7 @@ function CategorySection({
         </div>
         <button className="self-start whitespace-nowrap text-sm font-medium text-teal-600 hover:text-teal-700 sm:self-auto">
           <span className="flex items-center gap-1">
-            Xem tat ca <ChevronRight size={16} />
+            Xem tất cả <ChevronRight size={16} />
           </span>
         </button>
       </div>

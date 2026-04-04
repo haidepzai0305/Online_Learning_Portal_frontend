@@ -5,8 +5,8 @@ import AuthPage from "./components/features/Auth/AuthPage";
 import { HomeScreen } from "./components/features/home/HomeScreen";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [userName, setUserName] = useState("User");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(localStorage.getItem("access_token")));
+  const [userName, setUserName] = useState(() => localStorage.getItem("user_name") ?? "User");
   const [userProgress] = useState(65);
 
   const handleLogout = () => {
@@ -15,6 +15,7 @@ function App() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("user_role");
+    localStorage.removeItem("user_name");
   };
 
   return (
@@ -30,6 +31,7 @@ function App() {
                 onLoginSuccess={(name: string) => {
                   setIsAuthenticated(true);
                   setUserName(name);
+                  localStorage.setItem("user_name", name);
                 }}
               />
             )
