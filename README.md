@@ -2,7 +2,7 @@
 
 A premium, modern online learning platform frontend built with React, Vite, and Tailwind CSS.
 
-## 🚀 Get Started
+## Get Started
 
 Follow these steps to set up the project on your machine:
 
@@ -42,14 +42,14 @@ The app will be available at `http://localhost:5173`.
 
 ---
 
-## 🛠 Project Structure
+## Project Structure
 
 - `src/components`: UI components organized by features (Cart, Course, Profile, etc.)
 - `src/services`: API service layers and Axios configuration.
 - `src/context`: React Context for state management (Auth, Cart).
 - `src/assets`: Static assets and global styles.
 
-## 🔌 Backend Integration
+## Backend Integration
 
 The frontend connects to a Django/Python backend. During development, Vite's Dev Server proxies requests starting with `/api` to the URL specified in `VITE_BACKEND_TARGET` to avoid CORS issues.
 
@@ -59,11 +59,11 @@ The frontend connects to a Django/Python backend. During development, Vite's Dev
 - `user_role` (student/instructor/admin)
 - `user_name`
 
-## 🧱 Scripts
+## Scripts
 - `npm run dev`: Starts the development server.
 - `npm run build`: Build for production.
 - `npm run preview`: Locally preview the production build.
 - `npm run lint`: Run ESLint for code quality checks.
 
 ---
-*Developed with ❤️ for UniLearn Academy.*
+*Developed for UniLearn Academy.*
